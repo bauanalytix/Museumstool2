@@ -1,0 +1,79 @@
+[
+  {
+    "bauteil": "Satteldach",
+    "baujahrVon": 0,
+    "baujahrBis": 1990,
+    "schadstoff": "Chlororganische Holzschutzmittel",
+    "text": "In Konstruktionshölzeren, die vor 1989 eingebaut wurden, kann eine Belastung mit chlororganischen Holzschutzmitteln vorliegen"
+  },
+  {
+    "bauteil": "Flachdach",
+    "baujahrVon": 0,
+    "baujahrBis": 1993,
+    "schadstoff": "Asbest, PAK",
+    "text": "Die Abdichtungsbahnen können mit Asbest und evtl. PAK belastet sein."
+  },
+  {
+    "bauteil": "Massivwand",
+    "baujahrVon": 0,
+    "baujahrBis": 1995,
+    "schadstoff": "Asbest",
+    "text": "Die Wandoberflächen (Putze, Farben, Spachtelmassen) können mit Asbest belastet sein"
+  },
+  {
+    "bauteil": "Trockenbauwände",
+    "baujahrVon": 0,
+    "baujahrBis": 1995,
+    "schadstoff": "Asbest",
+    "text": "Die Spachtelmassen an den Trockenbauwänden können mit Asbest belastet sein."
+  },
+  {
+    "bauteil": "Trockenbauwände",
+    "baujahrVon": 0,
+    "baujahrBis": 2001,
+    "schadstoff": "alte KMF",
+    "text": "Die Innenliegende Mineralwolle in den Trockenbauwänden ist mit alter KMF belastet."
+  },
+  {
+    "bauteil": "Bahnenware",
+    "baujahrVon": 0,
+    "baujahrBis": 1993,
+    "schadstoff": "Asbest",
+    "text": "Die Bodenbeläge und die darunter liegenden Klebstoffe können mit Asbest belastet sein."
+  },
+  {
+    "bauteil": "Massivwand",
+    "baujahrVon": 0,
+    "baujahrBis": 1980,
+    "schadstoff": "PCB",
+    "text": "Die Wandoberflächen (Farben) können mit PCB belastet sein"
+  },
+  {
+    "bauteil": "Parkett",
+    "baujahrVon": 0,
+    "baujahrBis": 1980,
+    "schadstoff": "PAK",
+    "text": "Der Klebstoff unter dem Parkett kann teerhaltig sein."
+  },
+  {
+    "bauteil": "Sanitärbereiche",
+    "baujahrVon": 0,
+    "baujahrBis": 1995,
+    "schadstoff": "Asbest",
+    "text": "Fliesenkleber und Abdichtungen können mit Asbest belastet sein"
+  },
+  {
+    "bauteil": "Technik",
+    "baujahrVon": 0,
+    "baujahrBis": 1995,
+    "schadstoff": "Asbest",
+    "text": "Die technischen Anlagen (Dichtungen, Brandschutzklappen, Ummantellungen, Verkofferungen, etc.) können mit Asbest belastet sein."
+  },
+  {
+    "bauteil": "Technik",
+    "baujahrVon": 0,
+    "baujahrBis": 2001,
+    "schadstoff": "alte KMF",
+    "text": "Die Innenliegende Mineralwolle in den Trockenbauwänden ist mit alter KMF belastet."
+  }
+]
