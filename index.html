@@ -291,62 +291,44 @@ window.createPDF = async function () {
         const depotChecked = Array.from(document.querySelectorAll('.depot:checked'))
             .map(cb => cb.value);
 
+const responseGebaeude = await fetch('gebaeude_schadstoffe.json');
+const gebaeudeDaten = await responseGebaeude.json();
+
+const responseDepot = await fetch('depot_schadstoffe.json');
+const depotDaten = await responseDepot.json();
+
         let bewertung = [];
 
-        if (checked.includes('Massivwände') && baujahr < 1993) {
-            bewertung.push('Mögliche Asbestbelastung in Putzen, Spachtelmassen und Anstrichen an Massivwänden.');
-        }
+gebaeudeDaten.forEach(eintrag => {
 
-        if (checked.includes('PVC-Beläge') && baujahr < 1995) {
-            bewertung.push('Mögliche Schadstoffbelastung in PVC-Belägen und Klebstoffen (z.B. Asbest oder PAK).');
-        }
+    const bauteilTreffer = checked.includes(eintrag.bauteil);
 
-        if (checked.includes('Holzkonstruktionen') && baujahr < 1989) {
-            bewertung.push('Mögliche chlororganische Holzschutzmittel in Holzkonstruktionen.');
-        }
+    const baujahrPassend = (
+        (!eintrag.baujahrVon || baujahr >= eintrag.baujahrVon) &&
+        (!eintrag.baujahrBis || baujahr <= eintrag.baujahrBis)
+    );
 
-        if (checked.includes('Flachdach') && baujahr < 1995) {
-            bewertung.push('Mögliche PAK-haltige Dachabdichtungen oder asbesthaltige Materialien im Dachaufbau.');
-        }
+    if (bauteilTreffer && baujahrPassend) {
+        bewertung.push(eintrag.text);
+    }
 
-        if (checked.includes('Technik') && baujahr < 1990) {
-            bewertung.push('Mögliche PCB-, Asbest- oder KMF-belastete technische Anlagen oder Installationen.');
-        }
+});
 
         if (schimmelObjekte === 'ja') {
-            bewertung.push('Hinweise auf einen möglichen Schimmelpilzbefall an eingelagerten Gegenständen oder Exponaten.');
-        }
-
+    bewertung.push('Hinweise auf einen möglichen Schimmelpilzbefall an eingelagerten Gegenständen oder Exponaten.');
+}
+        
         let depotBewertung = [];
 
-        if (depotChecked.includes('Holzobjekte')) {
-            depotBewertung.push('Mögliche Holzschutzmittel oder biozidbehandelte Holzoberflächen an historischen Holzobjekten.');
-        }
+depotDaten.forEach(eintrag => {
 
-        if (depotChecked.includes('Papier')) {
-            depotBewertung.push('Mögliche Schimmelpilz- oder Staubbelastungen in papierbasierten Archiven und Sammlungen.');
-        }
+    const materialTreffer = depotChecked.includes(eintrag.materialgruppe);
 
-        if (depotChecked.includes('Leder')) {
-            depotBewertung.push('Mögliche Biozid-, Gerbstoff- oder Schimmelpilzbelastungen an Leder- und Fellobjekten.');
-        }
+    if (materialTreffer) {
+        depotBewertung.push(eintrag.text);
+    }
 
-        if (depotChecked.includes('Tierexponate')) {
-            depotBewertung.push('Mögliche Belastungen durch Arsen, Biozide oder Konservierungsstoffe an Tierpräparaten.');
-        }
-
-        if (depotChecked.includes('Metallobjekte')) {
-            depotBewertung.push('Mögliche Schwermetall- oder Korrosionsschutzbeschichtungen an historischen Metallobjekten.');
-        }
-
-        if (depotChecked.includes('Gemaelde')) {
-            depotBewertung.push('Mögliche schwermetallhaltige Pigmente oder lösemittelhaltige Altbeschichtungen an Gemälden.');
-        }
-
-        if (depotChecked.includes('Mineralien')) {
-            depotBewertung.push('Mögliche natürliche Schadstoffe oder Faserstoffe in mineralischen Sammlungsobjekten.');
-        }
-
+});
         let y = 18;
 
         const checkPageBreak = (needed = 20) => {
@@ -475,7 +457,6 @@ try {
 doc.text('Museum – Schadstoff-Erstsichtung', 20, 18);
 
 doc.setTextColor(0, 0, 0);
-        doc.text('Museum – Schadstoff-Erstsichtung', 20, 18);
 
         y += 10;
 
