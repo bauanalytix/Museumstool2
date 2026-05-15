@@ -1,0 +1,47 @@
+[
+  {
+    "materialgruppe": "Holzgegenstände",
+    "kategorie": "Biozide",
+    "text": "Mögliche Belastung mit Bioziden oder Konservierungsstoffen an Holzgegenstände."
+  },
+  {
+    "materialgruppe": "Holzgegenstände",
+    "kategorie": "Schwermetalle",
+    "text": "Mögliche schwermetallhaltige Materialien oder Beschichtungen an Holzgegenstände."
+  },
+  {
+    "materialgruppe": "Papier",
+    "kategorie": "Schwermetalle",
+    "text": "Mögliche schwermetallhaltige Materialien oder Beschichtungen an Papier."
+  },
+  {
+    "materialgruppe": "Leder / Felle",
+    "kategorie": "Biozide",
+    "text": "Mögliche Belastung mit Bioziden oder Konservierungsstoffen an Leder / Felle."
+  },
+  {
+    "materialgruppe": "Leder / Felle",
+    "kategorie": "Schwermetalle",
+    "text": "Mögliche schwermetallhaltige Materialien oder Beschichtungen an Leder / Felle."
+  },
+  {
+    "materialgruppe": "Tierexponate",
+    "kategorie": "Biozide",
+    "text": "Mögliche Belastung mit Bioziden oder Konservierungsstoffen an Tierexponate."
+  },
+  {
+    "materialgruppe": "Tierexponate",
+    "kategorie": "Schwermetalle",
+    "text": "Mögliche schwermetallhaltige Materialien oder Beschichtungen an Tierexponate."
+  },
+  {
+    "materialgruppe": "Gemälde",
+    "kategorie": "Biozide",
+    "text": "Mögliche Belastung mit Bioziden oder Konservierungsstoffen an Gemälde."
+  },
+  {
+    "materialgruppe": "Gemälde",
+    "kategorie": "Schwermetalle",
+    "text": "Mögliche schwermetallhaltige Materialien oder Beschichtungen an Gemälde."
+  }
+]
