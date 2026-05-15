@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Museum – Schadstoff-Erstsichtung</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 900px;
+    margin: auto;
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.logo {
+    max-width: 220px;
+    margin-bottom: 15px;
+}
+
+h1 {
+    color: #b3001b;
+}
+
+.section {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #ddd;
+}
+
+label {
+    display: block;
+    margin-top: 12px;
+    font-weight: bold;
+}
+
+input, textarea, select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box;
+}
+
+.checkbox-group {
+    margin-top: 15px;
+    padding: 15px;
+    background: #fafafa;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+}
+
+.checkbox-group label {
+    font-weight: normal;
+    margin-top: 8px;
+}
+
+.checkbox-item {
+    border-bottom: 1px solid #ddd;
+    padding: 10px 0;
+}
+
+.checkbox-item:last-child {
+    border-bottom: none;
+}
+
+button {
+    margin-top: 30px;
+    padding: 14px 24px;
+    background: #b3001b;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #8f0015;
+}
+
+.info {
+    color: #555;
+    margin-top: 10px;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<img src="bauanalytix_rz_farbe einzeln_klein.jpg" class="logo" alt="bauanalytix_rz_farbe einzeln_klein">
+
+<h1>Museum – Schadstoff-Erstsichtung</h1>
+
+<p class="info">
+Dieses Tool dient ausschließlich einer orientierenden Ersteinschätzung möglicher schadstoffrelevanter Fragestellungen. Die Bewertung ersetzt keine sachverständige Untersuchung.
+</p>
+
+<div class="section">
+<h2>1. Allgemeine Angaben</h2>
+
+<label>Name der bearbeitenden Person</label>
+<input type="text" id="person">
+
+<label>Name der Einrichtung</label>
+<input type="text" id="museum">
+
+<label>Adresse</label>
+<textarea id="adresse"></textarea>
+</div>
+
+<div class="section">
+<h2>2. Gebäude</h2>
+
+<label>Baujahr des Gebäudes (ggf. Schätzung)</label>
+<input type="number" id="baujahr">
+
+<label>Sind Umbauarbeiten am Gebäude selbst geplant?</label>
+<select id="umbau" onchange="toggleBauteile()">
+<option value="nein">Nein</option>
+<option value="ja">Ja</option>
+</select>
+
+<div id="bauteile" style="display:none;">
+
+<div class="checkbox-group">
+<h3>Betroffene Bauteile / Bereiche</h3>
+
+<div class="checkbox-item">
+<label><input type="checkbox" value="Massivwände" class="bauteil"> Massivwände</label>
+</div>
+
+<div class="checkbox-item">
+<label><input type="checkbox" value="Trockenbauwände" class="bauteil"> Trockenbauwände</label>
+</div>
+
+<div class="checkbox-item">
+<label><input type="checkbox" value="Flachdach" class="bauteil"> Flachdach</label>
+</div>
+
+<div class="checkbox-item">
+<label><input type="checkbox" value="PVC-Beläge" class="bauteil"> Bahnenware / PVC-Beläge</label>
+</div>
+
+<div class="checkbox-item">
+<label><input type="checkbox" value="Parkett" class="bauteil"> Parkett</label>
+</div>
+
+<div class="checkbox-item">
+<label><input type="checkbox" value="Sanitärbereiche" class="bauteil"> Sanitärbereiche</label>
+</div>
+
+<div class="checkbox-item">
+<label><input type="checkbox" value="Technik" class="bauteil"> Technik</label>
+</div>
+
+<div class="checkbox-item">
+<label><input type="checkbox" value="Holzkonstruktionen" class="bauteil"> Holzkonstruktionen</label>
+</div>
+
+</div>
+</div>
+</div>
+
+<div class="section">
+<h2>3. Depot / Exponate</h2>
+
+<div class="checkbox-group">
+<h3>Welche Materialgruppen sind im Depot vorhanden?</h3>
+
+<div class="checkbox-item">
+<label><input type="checkbox" value="Holzobjekte" class="depot"> Holzobjekte</label>
+</div>
+
+<div class="checkbox-item">
+<label><input type="checkbox" value="Papier" class="depot"> Papier / Archive</label>
+</div>
+
+<div class="checkbox-item">
+<label><input type="checkbox" value="Leder" class="depot"> Leder / Felle</label>
+</div>
+
+<div class="checkbox-item">
+<label><input type="checkbox" value="Tierexponate" class="depot"> Tierexponate / Präparate</label>
+</div>
+
+<div class="checkbox-item">
+<label><input type="checkbox" value="Metallobjekte" class="depot"> Metallobjekte</label>
+</div>
+
+<div class="checkbox-item">
+<label><input type="checkbox" value="Gemaelde" class="depot"> Gemälde</label>
+</div>
+
+<div class="checkbox-item">
+<label><input type="checkbox" value="Mineralien" class="depot"> Mineralien / Gesteine</label>
+</div>
+
+</div>
+</div>
+
+<div class="section">
+<h2>4. Schimmelpilze</h2>
+
+<label>Gibt es Hinweise auf einen Schimmelpilzbefall im Gebäude?</label>
+<select id="schimmelGebaeude" onchange="toggleSchimmelFoto()">
+<option value="nein">Nein</option>
+<option value="ja">Ja</option>
+</select>
+
+<div id="schimmelFotoBereich" style="display:none; margin-top:15px;">
+<label>Foto zum Gebäude hochladen</label>
+<input type="file" id="schimmelFoto" accept="image/*">
+</div>
+
+<label style="margin-top:25px;">Gibt es Hinweise auf einen Schimmelpilzbefall an Gegenständen oder Exponaten?</label>
+<select id="schimmelObjekte" onchange="toggleObjektFoto()">
+<option value="nein">Nein</option>
+<option value="ja">Ja</option>
+</select>
+
+<div id="objektFotoBereich" style="display:none; margin-top:15px;">
+<label>Foto zu den betroffenen Gegenständen hochladen</label>
+<input type="file" id="objektFoto" accept="image/*">
+</div>
+</div>
+
+<div class="section">
+<h2>4. Freitext</h2>
+
+<label>Welche Punkte sollten Ihrer Ansicht nach näher untersucht werden?</label>
+<textarea id="freitext" rows="6"></textarea>
+</div>
+
+<button onclick="createPDF()">PDF-Bericht erstellen</button>
+
+<button onclick="clearAllData()" style="background:#777; margin-left:10px;">
+Alle Daten löschen
+</button>
+
+</div>
+
+<script>
+
+window.toggleBauteile = function () {
+    const umbau = document.getElementById('umbau').value;
+    document.getElementById('bauteile').style.display = umbau === 'ja' ? 'block' : 'none';
+};
+
+window.toggleSchimmelFoto = function () {
+    const wert = document.getElementById('schimmelGebaeude').value;
+    document.getElementById('schimmelFotoBereich').style.display = wert === 'ja' ? 'block' : 'none';
+};
+
+window.toggleObjektFoto = function () {
+    const wert = document.getElementById('schimmelObjekte').value;
+    document.getElementById('objektFotoBereich').style.display = wert === 'ja' ? 'block' : 'none';
+};
+
+window.createPDF = async function () {
+
+    try {
+
+        const jsPDF = window.jspdf.jsPDF;
+        const doc = new jsPDF({ unit: 'mm', format: 'a4' });
+
+        const person = document.getElementById('person').value;
+        const museum = document.getElementById('museum').value;
+        const adresse = document.getElementById('adresse').value;
+        const baujahr = parseInt(document.getElementById('baujahr').value);
+        const freitext = document.getElementById('freitext').value;
+        const schimmelGebaeude = document.getElementById('schimmelGebaeude').value;
+        const schimmelObjekte = document.getElementById('schimmelObjekte').value;
+        const schimmelFoto = document.getElementById('schimmelFoto').files[0];
+        const objektFoto = document.getElementById('objektFoto').files[0];
+
+        const checked = Array.from(document.querySelectorAll('.bauteil:checked'))
+            .map(cb => cb.value);
+
+        const depotChecked = Array.from(document.querySelectorAll('.depot:checked'))
+            .map(cb => cb.value);
+
+        let bewertung = [];
+
+        if (checked.includes('Massivwände') && baujahr < 1993) {
+            bewertung.push('Mögliche Asbestbelastung in Putzen, Spachtelmassen und Anstrichen an Massivwänden.');
+        }
+
+        if (checked.includes('PVC-Beläge') && baujahr < 1995) {
+            bewertung.push('Mögliche Schadstoffbelastung in PVC-Belägen und Klebstoffen (z.B. Asbest oder PAK).');
+        }
+
+        if (checked.includes('Holzkonstruktionen') && baujahr < 1989) {
+            bewertung.push('Mögliche chlororganische Holzschutzmittel in Holzkonstruktionen.');
+        }
+
+        if (checked.includes('Flachdach') && baujahr < 1995) {
+            bewertung.push('Mögliche PAK-haltige Dachabdichtungen oder asbesthaltige Materialien im Dachaufbau.');
+        }
+
+        if (checked.includes('Technik') && baujahr < 1990) {
+            bewertung.push('Mögliche PCB-, Asbest- oder KMF-belastete technische Anlagen oder Installationen.');
+        }
+
+        if (schimmelObjekte === 'ja') {
+            bewertung.push('Hinweise auf einen möglichen Schimmelpilzbefall an eingelagerten Gegenständen oder Exponaten.');
+        }
+
+        let depotBewertung = [];
+
+        if (depotChecked.includes('Holzobjekte')) {
+            depotBewertung.push('Mögliche Holzschutzmittel oder biozidbehandelte Holzoberflächen an historischen Holzobjekten.');
+        }
+
+        if (depotChecked.includes('Papier')) {
+            depotBewertung.push('Mögliche Schimmelpilz- oder Staubbelastungen in papierbasierten Archiven und Sammlungen.');
+        }
+
+        if (depotChecked.includes('Leder')) {
+            depotBewertung.push('Mögliche Biozid-, Gerbstoff- oder Schimmelpilzbelastungen an Leder- und Fellobjekten.');
+        }
+
+        if (depotChecked.includes('Tierexponate')) {
+            depotBewertung.push('Mögliche Belastungen durch Arsen, Biozide oder Konservierungsstoffe an Tierpräparaten.');
+        }
+
+        if (depotChecked.includes('Metallobjekte')) {
+            depotBewertung.push('Mögliche Schwermetall- oder Korrosionsschutzbeschichtungen an historischen Metallobjekten.');
+        }
+
+        if (depotChecked.includes('Gemaelde')) {
+            depotBewertung.push('Mögliche schwermetallhaltige Pigmente oder lösemittelhaltige Altbeschichtungen an Gemälden.');
+        }
+
+        if (depotChecked.includes('Mineralien')) {
+            depotBewertung.push('Mögliche natürliche Schadstoffe oder Faserstoffe in mineralischen Sammlungsobjekten.');
+        }
+
+        let y = 18;
+
+        const checkPageBreak = (needed = 20) => {
+            if (y + needed > 280) {
+                doc.addPage();
+                y = 18;
+            }
+        };
+
+        const addSectionTitle = (title) => {
+             checkPageBreak(16);
+
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(12);
+
+    // Rot
+    doc.setTextColor(170, 0, 20);
+
+    doc.text(title, 20, y);
+
+    y += 2;
+
+    // dünne rote Linie
+    doc.setDrawColor(200, 40, 60);
+    doc.line(20, y, 190, y);
+
+    y += 6;
+
+    // zurück auf schwarz
+    doc.setTextColor(0, 0, 0);
+};
+
+        const addLabelValue = (label, value) => {
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(10);
+            doc.text(label, 20, y);
+
+            doc.setFont('helvetica', 'normal');
+            const lines = doc.splitTextToSize(String(value || '-'), 110);
+            doc.text(lines, 70, y);
+            y += Math.max(5, lines.length * 4.5);
+        };
+
+        const addParagraph = (text) => {
+            doc.setFont('helvetica', 'normal');
+            doc.setFontSize(10);
+            const lines = doc.splitTextToSize(text, 165);
+            checkPageBreak(lines.length * 4.5 + 4);
+            doc.text(lines, 20, y);
+            y += lines.length * 4.5 + 3;
+        };
+
+        const addBullet = (text) => {
+            doc.setFont('helvetica', 'normal');
+            doc.setFontSize(10);
+            doc.setFont('helvetica', 'normal');
+            doc.setFontSize(10);
+
+            const lines = doc.splitTextToSize(text, 155);
+            checkPageBreak(lines.length * 4.5 + 4);
+            doc.circle(22, y - 1, 0.7, 'F');
+            doc.text(lines, 26, y);
+            y += lines.length * 4.5 + 2;
+        };
+
+        const addImage = async (file, title) => {
+            if (!file) return;
+
+            return new Promise((resolve) => {
+                const reader = new FileReader();
+
+                reader.onload = function(e) {
+                    checkPageBreak(55);
+
+                    doc.setFont('helvetica', 'bold');
+                    doc.setFontSize(10);
+                    doc.text(title, 20, y);
+                    y += 4;
+
+                    doc.addImage(e.target.result, 'JPEG', 20, y, 50, 38);
+                    y += 44;
+                    resolve();
+                };
+
+                reader.readAsDataURL(file);
+            });
+        };
+
+        const logoBase64 = await fetch('bauanalytix_rz_farbe einzeln_klein.jpg')
+    .then(res => res.blob())
+    .then(blob => new Promise(resolve => {
+        const reader = new FileReader();
+        reader.onloadend = () => resolve(reader.result);
+        reader.readAsDataURL(blob);
+    }));
+
+try {
+
+    // Logo rechts oben platzieren
+    const logoWidth = 42;
+    const logoHeight = 10;
+
+    const pageWidth = doc.internal.pageSize.getWidth();
+
+    const xLogo = pageWidth - logoWidth - 20;
+    const yLogo = 12;
+
+    doc.addImage(
+        logoBase64,
+        'JPEG',
+        xLogo,
+        yLogo,
+        logoWidth,
+        logoHeight
+    );
+
+} catch(e) {
+    console.warn('Logo konnte nicht ins PDF geladen werden');
+}
+        
+
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(15);
+        doc.setTextColor(170, 0, 20);
+
+doc.text('Museum – Schadstoff-Erstsichtung', 20, 18);
+
+doc.setTextColor(0, 0, 0);
+        doc.text('Museum – Schadstoff-Erstsichtung', 20, 18);
+
+        y += 10;
+
+        doc.setFont('helvetica', 'italic');
+        doc.setFontSize(8.5);
+
+        const intro = doc.splitTextToSize(
+            'Diese Auswertung stellt ausschließlich eine orientierende Ersteinschätzung dar und ersetzt keine sachverständige Untersuchung.',
+            165
+        );
+
+        doc.text(intro, 20, y);
+        y += intro.length * 4 + 6;
+
+        addSectionTitle('Allgemeine Angaben');
+        addLabelValue('Bearbeitende Person', person);
+        addLabelValue('Einrichtung', museum);
+        addLabelValue('Adresse', adresse);
+        addLabelValue('Baujahr', baujahr);
+
+        y += 4;
+        y += 6;
+        addSectionTitle('Schimmelpilzhinweise');
+
+        if (schimmelGebaeude === 'ja' || schimmelObjekte === 'ja') {
+            addParagraph('Es liegen Hinweise auf einen möglichen Feuchte- oder Schimmelpilzbefall vor. Eine weiterführende Untersuchung zur Ursachenklärung, mikrobiologischen Bewertung und möglichen Schadensabgrenzung wird empfohlen.');
+        } else {
+            addParagraph('Es wurden keine Hinweise auf einen Schimmelpilzbefall angegeben.');
+        }
+
+        await addImage(schimmelFoto, 'Dokumentationsfoto Gebäude');
+        await addImage(objektFoto, 'Dokumentationsfoto Gegenstände/Exponate');
+
+        y += 5;
+        y += 8;
+        addSectionTitle('Mögliche Gebäudeschadstoffe');
+
+        if (bewertung.length === 0) {
+            addParagraph('Anhand der gewählten Eingaben wurden keine typischen schadstoffrelevanten Verdachtsmomente erkannt.');
+        } else {
+            bewertung.forEach(item => addBullet(item));
+        }
+
+        if (depotBewertung.length > 0) {
+            y += 8;
+            addSectionTitle('Mögliche schadstoffrelevante Aspekte im Depot');
+            depotBewertung.forEach(item => addBullet(item));
+        }
+
+        if (freitext.trim() !== '') {
+            y += 5;
+            y += 8;
+            addSectionTitle('Anmerkungen des Museumspersonals/Nutzers');
+            addParagraph(freitext);
+        }
+
+        doc.save('Museum_Schadstoffscreening.pdf');
+
+    } catch(error) {
+        console.error(error);
+        alert('Fehler bei der PDF-Erstellung. Bitte Browser-Konsole prüfen.');
+    }
+
+};
+
+    function saveFormData() {
+
+    const data = {
+        person: document.getElementById('person').value,
+        museum: document.getElementById('museum').value,
+        adresse: document.getElementById('adresse').value,
+        baujahr: document.getElementById('baujahr').value,
+        freitext: document.getElementById('freitext').value,
+        umbau: document.getElementById('umbau').value,
+        schimmelGebaeude: document.getElementById('schimmelGebaeude').value,
+        schimmelObjekte: document.getElementById('schimmelObjekte').value
+    };
+
+    localStorage.setItem('museumToolData', JSON.stringify(data));
+}
+
+    function loadFormData() {
+
+    const saved = localStorage.getItem('museumToolData');
+
+    if (!saved) return;
+
+    const data = JSON.parse(saved);
+
+    document.getElementById('person').value = data.person || '';
+    document.getElementById('museum').value = data.museum || '';
+    document.getElementById('adresse').value = data.adresse || '';
+    document.getElementById('baujahr').value = data.baujahr || '';
+    document.getElementById('freitext').value = data.freitext || '';
+
+    document.getElementById('umbau').value = data.umbau || 'nein';
+    document.getElementById('schimmelGebaeude').value = data.schimmelGebaeude || 'nein';
+    document.getElementById('schimmelObjekte').value = data.schimmelObjekte || 'nein';
+
+    toggleBauteile();
+    toggleSchimmelFoto();
+    toggleObjektFoto();
+}
+
+    window.onload = function() {
+    loadFormData();
+};
+
+    document.querySelectorAll('input, textarea, select').forEach(el => {
+    el.addEventListener('change', saveFormData);
+});
+
+    function clearAllData() {
+
+    if (!confirm('Wirklich alle gespeicherten Daten löschen?')) {
+        return;
+    }
+
+    localStorage.removeItem('museumToolData');
+
+    location.reload();
+}
+</script>
+
+</body>
+</html>
